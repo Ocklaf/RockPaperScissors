@@ -3,6 +3,24 @@ let userSelection = "",
     scoreHuman = 0,
     scoreComputer = 0
 
+const $btns = document.querySelectorAll("button")
+
+$btns.forEach((btn) => {
+    btn.addEventListener("click", (e) => {
+        if (btn.id) {
+            userSelection = "piedra"
+            whoWin(userSelection, computerSelection)
+        }
+        else if (btn.id) {
+            userSelection = "papel"
+            whoWin(userSelection, computerSelection)
+        }
+        else if (btn.id) {
+            userSelection = "tijera"
+            whoWin(userSelection, computerSelection)
+        }
+    })
+})
 // console.log(computerSelection)
 
 function computerPlay() {
@@ -21,9 +39,9 @@ function whoWin(userSelection, computerSelection) {
 
     computerSelection = computerPlay()
 
-    while (userSelection !== "piedra" && userSelection !== "papel" && userSelection !== "tijera") {
-        userSelection = prompt("Escribe: Piedra, Papel o Tijera!!").toLowerCase()
-    }
+    // while (userSelection !== "piedra" && userSelection !== "papel" && userSelection !== "tijera") {
+    //     userSelection = prompt("Escribe: Piedra, Papel o Tijera!!").toLowerCase()
+    // }
 
     if (userSelection === computerSelection) {
         console.log(`Empate!! ${userSelection} es igual a ${computerSelection}`)
@@ -57,9 +75,9 @@ function whoWin(userSelection, computerSelection) {
 }
 
 function game() {
-    for (let i = 0; i <= 4; i++) {
-        whoWin(userSelection, computerSelection)
-    }
+    // for (let i = 0; i <= 4; i++) {
+    //     whoWin(userSelection, computerSelection)
+    // }
     console.clear()
     if (scoreHuman > scoreComputer) console.log(`Resultado final: Has ganado la partida "${scoreHuman}" vs "${scoreComputer}"`)
     else if (scoreHuman < scoreComputer) console.log(`Resultado final: Has perdido la partida "${scoreComputer}" vs "${scoreHuman}"`)
