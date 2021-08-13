@@ -3,21 +3,24 @@ let userSelection = "",
     scoreHuman = 0,
     scoreComputer = 0
 
-const $btns = document.querySelectorAll("button")
+const $btns = document.querySelectorAll("button"),
+    $div = document.querySelector("#container-result"), $p = document.createElement("p"),
+    $divElement = document.createElement("div")
+
 
 $btns.forEach((btn) => {
     btn.addEventListener("click", (e) => {
         if (btn.id) {
             userSelection = "piedra"
-            whoWin(userSelection, computerSelection)
+            game()
         }
         else if (btn.id) {
             userSelection = "papel"
-            whoWin(userSelection, computerSelection)
+            game()
         }
         else if (btn.id) {
             userSelection = "tijera"
-            whoWin(userSelection, computerSelection)
+            game()
         }
     })
 })
@@ -37,51 +40,48 @@ function computerPlay() {
 
 function whoWin(userSelection, computerSelection) {
 
+    // if (userSelection === "") 
     computerSelection = computerPlay()
 
-    // while (userSelection !== "piedra" && userSelection !== "papel" && userSelection !== "tijera") {
-    //     userSelection = prompt("Escribe: Piedra, Papel o Tijera!!").toLowerCase()
-    // }
-
     if (userSelection === computerSelection) {
-        console.log(`Empate!! ${userSelection} es igual a ${computerSelection}`)
+        $div.textContent = (`Empate!! ${userSelection} es igual a ${computerSelection}`)
     }
     else if (userSelection === "piedra" && computerSelection === "papel") {
-        console.log("Has perdido!! La Piedra pierde frente Papel!!")
+        $div.textContent = ("Has perdido!! La Piedra pierde frente Papel!!")
         scoreComputer++
     }
     else if (userSelection === "piedra" && computerSelection === "tijera") {
-        console.log("Has ganado!! La Piedra gana a Tijera")
+        $div.textContent = ("Has ganado!! La Piedra gana a Tijera")
         scoreHuman++
     }
 
     else if (userSelection === "papel" && computerSelection === "piedra") {
-        console.log("Has ganado!! El Papel gana a la Piedra!!")
+        $div.textContent = ("Has ganado!! El Papel gana a la Piedra!!")
         scoreHuman++
     }
     else if (userSelection === "papel" && computerSelection === "tijera") {
-        console.log("Has perdido!! El Papel pierde contra Tijera!!")
+        $div.textContent = ("Has perdido!! El Papel pierde contra Tijera!!")
         scoreComputer++
     }
 
     else if (userSelection === "tijera" && computerSelection === "piedra") {
-        console.log("Has perdido!! Tijera pierde contra Piedra!!")
+        $div.textContent = ("Has perdido!! Tijera pierde contra Piedra!!")
         scoreComputer++
     }
     else if (userSelection === "tijera" && computerSelection === "papel") {
-        console.log("Has ganado!! La Tijera gana al Papel")
+        $div.textContent = ("Has ganado!! La Tijera gana al Papel")
         scoreHuman++
     }
 }
 
 function game() {
-    // for (let i = 0; i <= 4; i++) {
-    //     whoWin(userSelection, computerSelection)
-    // }
-    console.clear()
-    if (scoreHuman > scoreComputer) console.log(`Resultado final: Has ganado la partida "${scoreHuman}" vs "${scoreComputer}"`)
-    else if (scoreHuman < scoreComputer) console.log(`Resultado final: Has perdido la partida "${scoreComputer}" vs "${scoreHuman}"`)
-    else if (scoreHuman === scoreComputer) console.log(`Resultado final: Habéis empatado!!! "${scoreHuman}" vs "${scoreComputer}"`)
+    if (scoreHuman <= 4 && scoreComputer <= 4) {
+        whoWin(userSelection, computerSelection)
+        $div.insertAdjacentElement("afterend", $divElement).textContent = (`Score Panel:\n YOU: ${scoreHuman} VS COMPUTER: ${scoreComputer}`)
+        if(scoreHuman === 5 || scoreComputer === 5) game()
+    } else if (scoreHuman === 5){
+        $div.insertAdjacentElement("afterend", $divElement).textContent = (`YOU WIN!!!!!\nYOU: ${scoreHuman} VS COMPUTER: ${scoreComputer}`)
+    } else if (scoreComputer === 5){
+        $div.insertAdjacentElement("afterend", $divElement).textContent = (`COMPUTER WIN!!!!!\nYOU: ${scoreHuman} VS COMPUTER: ${scoreComputer}`)
+    }
 }
-
-game()
